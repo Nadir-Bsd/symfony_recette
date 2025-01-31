@@ -1,0 +1,19 @@
+.badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.badge-new {
+    background: var(--success-color);
+    color: white;
+}
+
+.badge-popular {
+    background: var(--accent-color);
+    color: white;
+}

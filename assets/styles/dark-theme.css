@@ -1,0 +1,24 @@
+[data-theme="dark"] {
+    --primary-color: #1a202c;
+    --accent-color: #4299e1;
+    --success-color: #48bb78;
+    --background-color: #2d3748;
+    --card-color: #2d3748;
+    --text-color: #f7fafc;
+}
+
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    padding: 1rem;
+    background: var(--card-color);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}

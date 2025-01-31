@@ -3,15 +3,45 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('styles/header.css') }}">
+        {% block stylesheets %}{% endblock %}
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block header %}
+            <header class="main-header">
+                <nav class="nav-container">
+                    <a href="{{ path('app_recipe') }}" class="nav-brand">
+                        <i class="fas fa-car"></i>
+                        recettes
+                    </a>
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="{{ path('app_recipe') }}" class="nav-link {% if app.request.get('_route') == 'app_recipe' %}active{% endif %}">
+                                <i class="fas fa-home"></i>
+                                Accueil
+                            </a>
+                        </li>
+                        {% if app.user %}
+                            <li>
+                                <a href="{{ path('app_logout') }}" class="nav-link logout-link">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Déconnexion
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+        {% endblock %}
+
+        <main style="margin-top: 80px;">
+            {% block body %}{% endblock %}
+        </main>
     </body>
 </html>

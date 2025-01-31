@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Recipe{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('styles/update.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/animations.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="dashboard fade-in">
+        <div class="content-wrapper slide-in">
+            <header class="dashboard-header">
+                <h1><i class="fas fa-edit"></i> Edit Recipe</h1>
+                <div class="header-actions">
+                    <a href="{{ path('app_recipe') }}" class="btn btn-primary">
+                        <i class="fas fa-arrow-left"></i> Back to list
+                    </a>
+                </div>
+            </header>
+
+            <div class="card">
+                <div class="form-wrapper">
+                    {{ form_start(form) }}
+                        {{ form_widget(form) }}
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save"></i> Update
+                            </button>
+                            {{ include('recipe/_delete_form.html.twig') }}
+                        </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

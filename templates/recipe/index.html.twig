@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recipe Management{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('styles/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/animations.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="dashboard fade-in">
+        <div class="content-wrapper slide-in">
+            <header class="dashboard-header">
+                <h1><i class="fas fa-utensils"></i> Recipe Management</h1>
+                <a href="{{ path('app_recipe_new') }}" class="btn-add">
+                    <i class="fas fa-plus"></i> New Recipe
+                </a>
+            </header>
+
+            <div class="cards-grid">
+                {% if recipes|length > 0 %}
+                    {% for recipe in recipes %}
+                        <div class="recipe-card">
+                            <div class="card-header">
+                                <i class="fas fa-utensils"></i>
+                                <h2>{{ recipe.name }}</h2>
+                            </div>
+                            <div class="card-content">
+                                <div class="recipe-info">
+                                    <p class="recipe-date"><i class="fas fa-calendar"></i> {{ recipe.createdAt ? recipe.createdAt|date('d M Y') : '' }}</p>
+                                    <p class="recipe-description">{{ recipe.description|slice(0, 100) }}...</p>
+                                </div>
+                                <div class="card-actions">
+                                    <a href="{{ path('app_recipe_show', {'id': recipe.id}) }}" class="btn btn-view">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn btn-edit">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <i class="fas fa-book-open"></i>
+                        <p>No recipes found in your collection</p>
+                        <a href="{{ path('app_recipe_new') }}" class="btn-add">Add Your First Recipe</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
