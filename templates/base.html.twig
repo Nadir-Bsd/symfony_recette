@@ -21,9 +21,20 @@
 			<header class="main-header">
 				<nav class="nav-container">
 					{% if app.user %}
-						<a href="{{ path('app_recipe') }}" class="nav-brand">
-							recettes
-						</a>
+
+						{% if 'recipe' in app.request.pathInfo %}
+							<a href="{{ path('app_category') }}" class="nav-link categories">
+								<i class="fas fa-tags"></i>
+								Catégories
+							</a>
+						{% else %}
+							<a href="{{ path('app_recipe') }}" class="nav-link recipes">
+								<i class="fas fa-utensils"></i>
+								Recettes
+							</a>
+						{% endif %}
+
+
 						<ul class="nav-menu">
 							<li>
 								<a href="{{ path('app_recipe') }}" class="nav-link {% if app.request.get('_route') == 'app_recipe' %}active{% endif %}">
@@ -37,8 +48,8 @@
 									Déconnexion
 								</a>
 							</li>
-						{% endif %}
-					</ul>
+						</ul>
+					{% endif %}
 				</nav>
 			</header>
 		{% endblock %}

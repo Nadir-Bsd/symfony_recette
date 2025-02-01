@@ -1,20 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CategoryController!{% endblock %}
+{% block title %}Catégories
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('styles/categories.css') }}">
+	<link rel="stylesheet" href="{{ asset('styles/header.css') }}">
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="categories-container">
+		<h1>
+			<span>
+				<i class="fas fa-tags"></i>
+				Nos Catégories
+			</span>
+			<a href="{{ path('app_category_new') }}" class="btn-add">
+				<i class="fas fa-plus"></i>
+				Ajouter
+			</a>
+		</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/nadir/garage404/symfony/second/my_project_directory/src/Controller/CategoryController.php</code></li>
-        <li>Your template at <code>/home/nadir/garage404/symfony/second/my_project_directory/templates/category/index.html.twig</code></li>
-    </ul>
-</div>
+		<div class="categories-grid">
+			{% if categories is empty %}
+				<div class="empty-state">
+					<i class="fas fa-folder-open"></i>
+					<p>Aucune catégorie n'a été trouvée</p>
+					<a href="{{ path('app_category_new') }}" class="btn-create">
+						<i class="fas fa-plus"></i>
+						Créer une catégorie
+					</a>
+				</div>
+			{% else %}
+				{% for category in categories %}
+					<div class="category-card">
+						<h2>{{ category.name }}</h2>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}
