@@ -26,6 +26,9 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\ManyToOne(inversedBy: 'Recipe')]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
@@ -80,6 +83,18 @@ class Recipe
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }
