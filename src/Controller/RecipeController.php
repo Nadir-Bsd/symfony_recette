@@ -128,13 +128,8 @@ final class RecipeController extends AbstractController
     #[Route('/{slugCategorie}/recettes', name: 'app_recipe_category', methods: ['GET'], requirements: ['slugCategorie' => '[a-z0-9-]+'])]
     public function recipeByCategory(string $slugCategorie, RecipeRepository $recipeRepository): Response
     {
-
         return $this->render('recipe/index.html.twig', [
             'recipes' => $recipeRepository->findAllByCategorySlug($slugCategorie),
         ]);
-
-        // return $this->redirectToRoute('app_recipe', [
-        //     'recipes' => $recipeRepository->findAllByCategorySlug($slugCategorie),
-        // ], Response::HTTP_SEE_OTHER);
     }
 }
