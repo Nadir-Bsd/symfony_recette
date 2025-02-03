@@ -51,6 +51,9 @@ final class RecipeController extends AbstractController
 
         // Validation et persistance des données
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $recipe->setUser($this->getUser());
+
             $entityManager->persist($recipe);
             $entityManager->flush();
 

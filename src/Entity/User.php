@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, Recipe>
      */
-    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'id_user')]
+    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'user')]
     private Collection $recipes;
 
     public function __construct()
@@ -133,7 +133,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->recipes->contains($recipe)) {
             $this->recipes->add($recipe);
-            $recipe->setIdUser($this);
+            $recipe->setUser($this);
         }
 
         return $this;
@@ -143,8 +143,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->recipes->removeElement($recipe)) {
             // set the owning side to null (unless already changed)
-            if ($recipe->getIdUser() === $this) {
-                $recipe->setIdUser(null);
+            if ($recipe->getUser() === $this) {
+                $recipe->setUser(null);
             }
         }
 

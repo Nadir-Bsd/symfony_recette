@@ -35,7 +35,7 @@ class Recipe
     private ?Category $category = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
-    private ?User $id_user = null;
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -107,14 +107,14 @@ class Recipe
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getUser(): ?User
     {
-        return $this->id_user;
+        return $this->user;
     }
 
-    public function setIdUser(?User $id_user): static
+    public function setUser(?User $user): static
     {
-        $this->id_user = $id_user;
+        $this->user = $user;
 
         return $this;
     }
