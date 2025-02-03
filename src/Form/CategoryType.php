@@ -29,7 +29,6 @@ class CategoryType extends AbstractType
                     'required' => true,
                 ],
             ])
-            ->add('valid', SubmitType::class)
         ;
     }
 
