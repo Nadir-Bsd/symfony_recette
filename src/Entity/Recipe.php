@@ -34,6 +34,9 @@ class Recipe
     #[Assert\NotBlank(message: 'Please select a category')]
     private ?Category $category = null;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    private ?User $id_user = null;
+
     public function __construct()
     {
         $this->created_at = new DateTimeImmutable();
@@ -100,6 +103,18 @@ class Recipe
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getIdUser(): ?User
+    {
+        return $this->id_user;
+    }
+
+    public function setIdUser(?User $id_user): static
+    {
+        $this->id_user = $id_user;
 
         return $this;
     }
