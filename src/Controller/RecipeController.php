@@ -44,7 +44,7 @@ final class RecipeController extends AbstractController
     {
         // Création d'une nouvelle instance de Recipe
         $recipe = new Recipe();
-        
+
         // Création et gestion du formulaire
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
@@ -91,6 +91,13 @@ final class RecipeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
+
+        // Vérifiez si l'utilisateur connecté est le créateur de la recette
+        if ($recipe->getUser() !== $this->getUser()) {
+            // redirection vers la page d'accueil
+            return $this->redirectToRoute('app_recipe', [], Response::HTTP_SEE_OTHER);
+        }
+
         // Création du formulaire pré-rempli avec les données existantes
         $form = $this->createForm(RecipeType::class, $recipe);
         $form->handleRequest($request);
@@ -120,12 +127,12 @@ final class RecipeController extends AbstractController
     public function delete(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
         // Vérification du token CSRF pour la sécurité
-        if ($this->isCsrfTokenValid('delete'.$recipe->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($recipe);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_recipe', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{slugCategorie}/recettes', name: 'app_recipe_category', methods: ['GET'], requirements: ['slugCategorie' => '[a-z0-9-]+'])]
