@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -15,18 +16,22 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter a name')]
     private ?string $name = null;
 
     #[ORM\Column]
     private ?DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Please enter a description')]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'Recipe')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Please select a category')]
     private ?Category $category = null;
 
     public function __construct()
