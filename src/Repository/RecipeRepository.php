@@ -16,6 +16,17 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
+    public function findAllByCategorySlug(string $slug): array
+    {
+        return $this->createQueryBuilder('r')
+            ->join('r.category', 'c')
+            ->andWhere('c.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     //    /**
     //     * @return Recipe[] Returns an array of Recipe objects
     //     */

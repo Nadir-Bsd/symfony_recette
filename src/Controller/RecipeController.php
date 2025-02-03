@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Requirement\Requirement;
 
 /**
  * Controller gérant les opérations CRUD pour l'entité Recipe
@@ -122,5 +123,18 @@ final class RecipeController extends AbstractController
         }
 
         return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{slugCategorie}/recettes', name: 'app_recipe_category', methods: ['GET'], requirements: ['slugCategorie' => '[a-z0-9-]+'])]
+    public function recipeByCategory(string $slugCategorie, RecipeRepository $recipeRepository): Response
+    {
+
+        return $this->render('recipe/index.html.twig', [
+            'recipes' => $recipeRepository->findAllByCategorySlug($slugCategorie),
+        ]);
+
+        // return $this->redirectToRoute('app_recipe', [
+        //     'recipes' => $recipeRepository->findAllByCategorySlug($slugCategorie),
+        // ], Response::HTTP_SEE_OTHER);
     }
 }

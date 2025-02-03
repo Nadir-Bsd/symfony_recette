@@ -22,6 +22,13 @@ class CategoryType extends AbstractType
                     'autofocus' => true,
                 ],
             ])
+            ->add('slug', TextType::class, [
+                'label' => 'Slug',
+                'attr' => [
+                    'placeholder' => 'Enter slug',
+                    'required' => true,
+                ],
+            ])
             ->add('valid', SubmitType::class)
         ;
     }

@@ -30,9 +30,12 @@ class Recipe
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'Recipe')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     #[Assert\NotBlank(message: 'Please select a category')]
     private ?Category $category = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $category_slug = null;
 
     public function __construct()
     {
@@ -100,6 +103,18 @@ class Recipe
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getCategorySlug(): ?string
+    {
+        return $this->category_slug;
+    }
+
+    public function setCategorySlug(?string $category_slug): static
+    {
+        $this->category_slug = $category_slug;
 
         return $this;
     }

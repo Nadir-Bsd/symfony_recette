@@ -24,9 +24,17 @@ class Category
     #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'category', orphanRemoval: true)]
     private Collection $Recipe;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->Recipe = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
@@ -72,6 +80,18 @@ class Category
                 $recipe->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): static
+    {
+        $this->slug = $slug;
 
         return $this;
     }
