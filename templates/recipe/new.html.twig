@@ -22,14 +22,7 @@
 
             <div class="card">
                 <div class="form-wrapper">
-                    {{ form_start(form) }}
-                        {{ form_widget(form) }}
-                        <div class="form-actions">
-                            <button type="submit" class="btn btn-success">
-                                <i class="fas fa-save"></i> Create Recipe
-                            </button>
-                        </div>
-                    {{ form_end(form) }}
+                    {{ include('recipe/_form.html.twig') }}
                 </div>
             </div>
         </div>

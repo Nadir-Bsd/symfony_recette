@@ -1,4 +1,46 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{% if form_errors(form.name) %}
+	<div class="form-error">
+		{{ form_errors(form.name) }}
+	</div>
+{% endif %}
+
+{% if form_errors(form.description) %}
+	<div class="form-error">
+		{{ form_errors(form.description) }}
+	</div>
+{% endif %}
+
+{% if form_errors(form.category) %}
+	<div class="form-error">
+		{{ form_errors(form.category) }}
+	</div>
+{% endif %}
+
+{% if form_errors(form.slug) %}
+	<div class="form-error">
+		{{ form_errors(form.slug) }}
+	</div>
+{% endif %}
+
+{{ form_label(form.name) }}
+{{ form_widget(form.name) }}
+
+{{ form_label(form.category) }}
+{{ form_widget(form.category) }}
+
+{{ form_label(form.description) }}
+{{ form_widget(form.description) }}
+
+{{ form_label(form.slug) }}
+{{ form_widget(form.slug) }}
+
+<div class="form-actions">
+	<button type="submit" class="btn btn-success">
+		<i class="fas fa-save"></i>
+		Create Recipe
+	</button>
+</div>
+
 {{ form_end(form) }}

@@ -16,21 +16,59 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Please enter a name')]
+    // Validate the name field
+    #[Assert\Sequentially(
+        [
+            new Assert\NotBlank(message: 'Please enter a name'),
+            new Assert\NotNull(message: 'Please let this input alone'),
+            new Assert\Length(
+                min: 3,
+                max: 100,
+                minMessage: 'The name must be at least {{ limit }} characters long',
+                maxMessage: 'The name cannot be longer than {{ limit }} characters'
+            )
+        ]
+    )]
     private ?string $name = null;
 
     #[ORM\Column]
     private ?DateTimeImmutable $created_at = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'Please enter a description')]
+    // Validate the description field
+    #[Assert\Sequentially(
+        [
+            new Assert\NotBlank(message: 'Please enter a description'),
+            new Assert\NotNull(message: 'Please let this input alone'),
+            new Assert\Length(
+                min: 10,
+                max: 255,
+                minMessage: 'The description must be at least {{ limit }} characters long',
+                maxMessage: 'The description cannot be longer than {{ limit }} characters'
+            )
+        ]
+    )]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
+    // Validate the slug field
+    #[Assert\Sequentially(
+        [
+            new Assert\NotBlank(message: 'Please enter a slug'),
+            new Assert\NotNull(message: 'Please let this input alone'),
+            new Assert\Length(
+                min: 3,
+                max: 100,
+                minMessage: 'The slug must be at least {{ limit }} characters long',
+                maxMessage: 'The slug cannot be longer than {{ limit }} characters'
+            )
+        ]
+    )]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'Recipe')]
     #[ORM\JoinColumn(nullable: true)]
+    // Validate the category field
     #[Assert\NotBlank(message: 'Please select a category')]
     private ?Category $category = null;
 
