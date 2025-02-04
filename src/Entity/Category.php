@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
@@ -16,6 +17,13 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    // Verifications des contraintes de validation
+    #[Assert\Length(
+        max: 100, maxMessage: 'Name ne peux pas dépasser {{ limit }} caractères',
+        min: 3, minMessage: 'Name doit contenir au moins {{ limit }} caractères', 
+    )]
+    #[Assert\NotBlank(message: 'Name ne peux pas être vide')]
+    #[Assert\NotNull(message: 'Name ne peux pas être nul')]
     private ?string $name = null;
 
     /**
@@ -25,6 +33,13 @@ class Category
     private Collection $Recipe;
 
     #[ORM\Column(length: 255)]
+    // Verifications des contraintes de validation
+    #[Assert\Length(
+        max: 100, maxMessage: 'Name ne peux pas dépasser {{ limit }} caractères',
+        min: 3, minMessage: 'Name doit contenir au moins {{ limit }} caractères', 
+    )]
+    #[Assert\NotBlank(message: 'Name ne peux pas être vide')]
+    #[Assert\NotNull(message: 'Name ne peux pas être nul')]
     private ?string $slug = null;
 
     public function __construct()
