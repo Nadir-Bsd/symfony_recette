@@ -61,6 +61,7 @@ final class RecipeController extends AbstractController
         }
 
         return $this->render('recipe/new.html.twig', [
+            'isRecipeExisting' => false,
             'recipe' => $recipe,
             'form' => $form,
         ]);
@@ -110,6 +111,7 @@ final class RecipeController extends AbstractController
         }
 
         return $this->render('recipe/edit.html.twig', [
+            'isRecipeExisting' => true,
             'recipe' => $recipe,
             'form' => $form,
         ]);
