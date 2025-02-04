@@ -1,5 +1,25 @@
 {{ form_start(form) }}
-{{ form_widget(form) }}
+
+{% if form_errors(form.name) %}
+	<div class="form-error">
+		{{ form_errors(form.name) }}
+	</div>
+{% endif %}
+
+{% if form_errors(form.slug) %}
+	<div class="form-error">
+		{{ form_errors(form.slug) }}
+	</div>
+{% endif %}
+
+
+{{ form_label(form.name) }}
+{{ form_widget(form.name) }}
+
+{{ form_label(form.slug) }}
+{{ form_widget(form.slug) }}
+
+
 <div class="form-actions">
 	<button type="submit" class="btn btn-success">
 		<i class="fas fa-save"></i>

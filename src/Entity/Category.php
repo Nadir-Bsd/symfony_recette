@@ -17,13 +17,16 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    
     // Verifications des contraintes de validation
-    #[Assert\Length(
-        max: 100, maxMessage: 'Name ne peux pas dépasser {{ limit }} caractères',
-        min: 3, minMessage: 'Name doit contenir au moins {{ limit }} caractères', 
-    )]
-    #[Assert\NotBlank(message: 'Name ne peux pas être vide')]
-    #[Assert\NotNull(message: 'Name ne peux pas être nul')]
+    #[Assert\Sequentially([
+        new Assert\Length(
+            max: 100, maxMessage: 'Name ne peux pas dépasser {{ limit }} caractères',
+            min: 4, minMessage: 'Name doit contenir au moins {{ limit }} caractères', 
+        ),
+        new Assert\NotBlank(message: 'Name ne peux pas être vide'),
+        new Assert\NotNull(message: 'Name ne peux pas être nul'),
+    ])]
     private ?string $name = null;
 
     /**
@@ -34,12 +37,14 @@ class Category
 
     #[ORM\Column(length: 255)]
     // Verifications des contraintes de validation
-    #[Assert\Length(
-        max: 100, maxMessage: 'Name ne peux pas dépasser {{ limit }} caractères',
-        min: 3, minMessage: 'Name doit contenir au moins {{ limit }} caractères', 
-    )]
-    #[Assert\NotBlank(message: 'Name ne peux pas être vide')]
-    #[Assert\NotNull(message: 'Name ne peux pas être nul')]
+    #[Assert\Sequentially([
+        new Assert\Length(
+            max: 100, maxMessage: 'Slug ne peux pas dépasser {{ limit }} caractères',
+            min: 3, minMessage: 'Slug doit contenir au moins {{ limit }} caractères', 
+        ),
+        new Assert\NotBlank(message: 'Slug ne peux pas être vide'),
+        new Assert\NotNull(message: 'Slug ne peux pas être nul'),
+    ])]
     private ?string $slug = null;
 
     public function __construct()

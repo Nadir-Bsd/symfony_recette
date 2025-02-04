@@ -79,8 +79,22 @@ h1 {
     box-shadow: var(--shadow);
 }
 
+.form-error {
+    color: #e74c3c;
+    background: #fff5f5;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    border: 1px solid #fab1a0;
+}
+
+.form-error ul {
+    margin: 0;
+    padding-left: 1.5rem;
+}
+
 h1 {
-    color: var(--primary-color);
+    color: var(--background-color);
     margin-bottom: 2rem;
     font-size: 1.8rem;
     display: flex;

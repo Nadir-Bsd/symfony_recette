@@ -49,7 +49,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         new Assert\NotBlank(message: 'Please enter a password'),
         new Assert\NotNull(message: 'stop it'),
         new Assert\PasswordStrength(
-            // message: 'Your password must be at least 6 characters long, and contain at least one digit, one upper case letter, one lower case letter',
             message: 'Your password must have at least 16 characters and contain at least one digit, one upper case letter, one lower case letter and one special character',
             minScore: PasswordStrength::STRENGTH_MEDIUM
         )
