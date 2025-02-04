@@ -30,7 +30,6 @@ final class CategoryController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($category);
             $entityManager->persist($category);
             $entityManager->flush();
             return $this->redirectToRoute('app_category', [], Response::HTTP_SEE_OTHER);

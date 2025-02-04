@@ -30,10 +30,14 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var string $plainPassword */
-            $plainPassword = $form->get('plainPassword')->getData();
+            // $plainPassword = $form->get('plainPassword')->getData();
 
+
+            
+            
             // encode the plain password
-            $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+            $user->setPassword($userPasswordHasher->hashPassword($user, $user->getPlainPassword()));
+            
 
             $email = (new TemplatedEmail())
                 ->from('test@test.com') // your email

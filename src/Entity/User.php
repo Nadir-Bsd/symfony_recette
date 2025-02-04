@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -21,6 +23,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    // Validation constraints
+    #[Assert\Sequentially([
+        new Assert\NotBlank(message: 'Please enter an email'),
+        new Assert\NotNull(message: 'stop it'),
+        new Assert\Email(message: 'The email "{{ value }}" is not a valid email.'),
+    ])]
     private ?string $email = null;
 
     /**
@@ -33,13 +41,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    
     private ?string $password = null;
+
+    // Validation constraints
+    #[Assert\Sequentially([
+        new Assert\NotBlank(message: 'Please enter a password'),
+        new Assert\NotNull(message: 'stop it'),
+        new Assert\PasswordStrength(
+            // message: 'Your password must be at least 6 characters long, and contain at least one digit, one upper case letter, one lower case letter',
+            message: 'Your password must have at least 16 characters and contain at least one digit, one upper case letter, one lower case letter and one special character',
+            minScore: PasswordStrength::STRENGTH_MEDIUM
+        )
+    ])]
+    private ?string $plainPassword = null;
 
     /**
      * @var Collection<int, Recipe>
      */
     #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'user')]
     private Collection $recipes;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    // validation constraints
+    #[Assert\Sequentially([
+        new Assert\NotBlank(message: 'Please enter a pseudo'),
+        new Assert\NotNull(message: 'stop it'),
+        new Assert\Length(
+            min: 6, minMessage: 'Your pseudo should be at least {{ limit }} characters',
+            max: 255, maxMessage: 'Your pseudo should be at most {{ limit }} characters'
+        ),
+        new Assert\Regex(
+            pattern: '/^[a-zA-Z0-9]*$/',
+            message: 'Your pseudo should contain only letters and numbers'
+        )
+    ])]
+    private ?string $pseudo = null;
 
     public function __construct()
     {
@@ -48,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __toString(): string
     {
-        return $this->email;
+        return $this->pseudo ?? $this->email;
     }
 
     public function getId(): ?int
@@ -117,6 +154,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): static
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -152,6 +201,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $recipe->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(?string $pseudo): static
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

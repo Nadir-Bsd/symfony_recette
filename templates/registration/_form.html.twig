@@ -1,0 +1,55 @@
+{{ form_start(registrationForm, {'attr': {'class': 'register-form'}}) }}
+
+<div class="form-group">
+	{{ form_label(registrationForm.email) }}
+	{{ form_widget(registrationForm.email, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Votre adresse email'
+                    }
+                }) }}
+    {% if form_errors(registrationForm.email) %}
+	<div class="form-error">
+		{{ form_errors(registrationForm.email) }}
+	</div>
+    {% endif %}
+</div>
+
+<div class="form-group">
+	{{ form_label(registrationForm.pseudo) }}
+	{{ form_widget(registrationForm.pseudo, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Votre pseudo'
+                    }
+                }) }}
+    {% if form_errors(registrationForm.pseudo) %}
+	<div class="form-error">
+		{{ form_errors(registrationForm.pseudo) }}
+	</div>
+    {% endif %}
+</div>
+
+<div class="form-group">
+	{{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+	{{ form_widget(registrationForm.plainPassword, {
+                    'attr': {
+                        'class': 'form-control',
+                        'placeholder': 'Choisissez un mot de passe sécurisé'
+                    }
+                }) }}
+
+    {% if form_errors(registrationForm.plainPassword) %}
+	<div class="form-error">
+		{{ form_errors(registrationForm.plainPassword) }}
+	</div>
+    {% endif %}
+</div>
+
+<div class="checkbox-group">
+	{{ form_widget(registrationForm.agreeTerms) }}
+	{{ form_label(registrationForm.agreeTerms, "J'accepte les conditions d'utilisation") }}
+</div>
+
+<button type="submit" class="btn">S'inscrire</button>
+{{ form_end(registrationForm) }}
