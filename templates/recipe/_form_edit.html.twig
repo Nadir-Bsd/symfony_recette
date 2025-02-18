@@ -1,0 +1,56 @@
+
+
+
+{{ form_start(formEdit) }}
+
+{% if form_errors(formEdit.name) %}
+	<div class="form-error">
+		{{ form_errors(formEdit.name) }}
+	</div>
+{% endif %}
+
+{% if form_errors(formEdit.description) %}
+	<div class="form-error">
+		{{ form_errors(formEdit.description) }}
+	</div>
+{% endif %}
+
+{% if form_errors(formEdit.category) %}
+	<div class="form-error">
+		{{ form_errors(formEdit.category) }}
+	</div>
+{% endif %}
+
+{% if form_errors(formEdit.slug) %}
+	<div class="form-error">
+		{{ form_errors(formEdit.slug) }}
+	</div>
+{% endif %}
+
+{{ form_row(formEdit._token) }}
+
+
+{{ form_label(formEdit.name) }}
+{{ form_widget(formEdit.name) }}
+
+{{ form_label(formEdit.category) }}
+{{ form_widget(formEdit.category) }}
+
+{{ form_label(formEdit.description) }}
+{{ form_widget(formEdit.description) }}
+
+{{ form_label(formEdit.slug) }}
+{{ form_widget(formEdit.slug) }}
+
+
+<div class="form-actions">
+	<button type="submit" class="btn btn-success">
+		<i class="fas fa-save"></i>
+		Update
+	</button>
+	{{ include('recipe/_delete_form.html.twig') }}
+</div>
+
+
+
+{{ form_end(formEdit) }}

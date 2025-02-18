@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
+use Symfony\Component\Security\Http\Attribute\IsCsrfTokenValid;
 
 /**
  * Controller gérant les opérations CRUD pour l'entité Recipe
@@ -90,6 +91,7 @@ final class RecipeController extends AbstractController
      * @return Response Redirection ou formulaire avec erreurs
      */
     #[Route('/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
+    // #[IsCsrfTokenValid('app_recipe_edit', tokenKey: 'token')]
     public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
 
@@ -100,11 +102,11 @@ final class RecipeController extends AbstractController
         }
 
         // Création du formulaire pré-rempli avec les données existantes
-        $form = $this->createForm(RecipeType::class, $recipe);
-        $form->handleRequest($request);
+        $formEdit = $this->createForm(RecipeType::class, $recipe);
+        $formEdit->handleRequest($request);
 
         // Validation et mise à jour des données
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($formEdit->isSubmitted() && $formEdit->isValid()) {
             $entityManager->flush();
 
             return $this->redirectToRoute('app_recipe', [], Response::HTTP_SEE_OTHER);
@@ -113,7 +115,7 @@ final class RecipeController extends AbstractController
         return $this->render('recipe/edit.html.twig', [
             'isRecipeExisting' => true,
             'recipe' => $recipe,
-            'form' => $form,
+            'formEdit' => $formEdit,
         ]);
     }
 

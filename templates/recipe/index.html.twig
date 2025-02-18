@@ -14,14 +14,14 @@
 		<div class="content-wrapper slide-in">
 			<header class="dashboard-header">
 
-					
 
-				<h1><i class="fas fa-utensils"></i>
-				{% if categoryName is defined %}
-					{{ categoryName | capitalize }}
-				{% else %}
-					Recipe Management
-				{% endif %}
+				<h1>
+					<i class="fas fa-utensils"></i>
+					{% if categoryName is defined %}
+						{{ categoryName | capitalize }}
+					{% else %}
+						Recipe Management
+					{% endif %}
 				</h1>
 				<a href="{{ path('app_recipe_new') }}" class="btn-add">
 					<i class="fas fa-plus"></i>
