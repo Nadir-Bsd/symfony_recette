@@ -1,6 +1,9 @@
 <h1>🍽️ Projet Recettes</h1>
 <p>Une application web de gestion de recettes développée avec Symfony. Elle permet aux utilisateurs d'ajouter, modifier et consulter des recettes facilement.</p>
 
+<h2>🚀 Démo</h2>
+    <p>Le site de Recette est déployé et accessible en ligne : <a href="https://nadir-recipe.pro4.garage404.com/" target="_blank">Voir le site de Recette</a></p>
+
 <h2>🛠 Technologies utilisées</h2>
 <ul>
     <li><strong>PHP</strong> : Langage backend</li>
